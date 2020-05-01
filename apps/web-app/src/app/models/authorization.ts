@@ -81,7 +81,7 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
             {
                 className: ColumnLayout.TwoColumn,
                 type: ControlType.TextArea,
-                key: 'otherinput',
+                key: 'TextArea',
                 templateOptions: {
                     label: 'Other Input',
                 },
@@ -91,7 +91,7 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
                 type: ControlType.Switch,
                 key: 'otherinput1',
                 templateOptions: {
-                    label: 'TextArea',
+                    label: 'Switch',
                     required: true,
                 },
                 validation: { messages: { required: 'You need to provide a name.' } }
@@ -102,7 +102,7 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
                 key: 'autocomplete',
                 templateOptions: {
                     label: 'Autocomplete',
-                    lookup: { id: 2, desc: 'sample', categoryId: 2 },
+                    lookup: { id: 2, desc: 'sample', categoryId: 1 },
                 },
             },
         ],

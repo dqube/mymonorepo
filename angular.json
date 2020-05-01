@@ -20,12 +20,19 @@
             "main": "apps/web-app/src/main.ts",
             "polyfills": "apps/web-app/src/polyfills.ts",
             "tsConfig": "apps/web-app/tsconfig.app.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/@syncfusion"
+              ]
+            },
             "aot": true,
             "assets": [
               "apps/web-app/src/favicon.ico",
               "apps/web-app/src/assets"
             ],
-            "styles": ["apps/web-app/src/styles.scss"],
+            "styles": [
+              "apps/web-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -83,7 +90,10 @@
               "apps/web-app/tsconfig.app.json",
               "apps/web-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/web-app/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/web-app/**"
+            ]
           }
         },
         "test": {
@@ -118,8 +128,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/web-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/web-app-e2e/**"]
+            "tsConfig": [
+              "apps/web-app-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/web-app-e2e/**"
+            ]
           }
         }
       }
@@ -149,7 +164,10 @@
               "libs/common/http/tsconfig.lib.json",
               "libs/common/http/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/http/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/http/**"
+            ]
           }
         },
         "test": {
@@ -193,7 +211,10 @@
               "libs/common/core/tsconfig.lib.json",
               "libs/common/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/core/**"
+            ]
           }
         },
         "test": {
@@ -237,7 +258,10 @@
               "libs/common/config/tsconfig.lib.json",
               "libs/common/config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/config/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/config/**"
+            ]
           }
         },
         "test": {
@@ -281,7 +305,10 @@
               "libs/common/logger/tsconfig.lib.json",
               "libs/common/logger/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/logger/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/logger/**"
+            ]
           }
         },
         "test": {
@@ -325,7 +352,10 @@
               "libs/form/lookup/tsconfig.lib.json",
               "libs/form/lookup/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/form/lookup/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/form/lookup/**"
+            ]
           }
         },
         "test": {
@@ -369,7 +399,10 @@
               "libs/form/core/tsconfig.lib.json",
               "libs/form/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/form/core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/form/core/**"
+            ]
           }
         },
         "test": {
@@ -413,7 +446,10 @@
               "libs/form/sync/tsconfig.lib.json",
               "libs/form/sync/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/form/sync/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/form/sync/**"
+            ]
           }
         },
         "test": {

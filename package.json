@@ -49,6 +49,7 @@
     "@syncfusion/ej2-angular-navigations": "^18.1.46",
     "@syncfusion/ej2-angular-popups": "^18.1.46",
     "@syncfusion/ej2-icons": "^18.1.42",
+    "bootstrap": "^4.4.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
