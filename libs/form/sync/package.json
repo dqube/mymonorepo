@@ -1,0 +1,19 @@
+{
+  "name": "@cts/form-sync",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.3",
+    "@angular/core": "^9.1.3",
+    "tslib": "^1.10.0",
+    "@cts/form-core": "0.0.1",
+    "@syncfusion/ej2-angular-base": "^18.1.46",
+    "@syncfusion/ej2-angular-buttons": "^18.1.43",
+    "@syncfusion/ej2-angular-calendars": "^18.1.44",
+    "@syncfusion/ej2-angular-charts": "^18.1.45",
+    "@syncfusion/ej2-angular-dropdowns": "^18.1.46",
+    "@syncfusion/ej2-angular-grids": "^18.1.46",
+    "@syncfusion/ej2-angular-inputs": "^18.1.45",
+    "@syncfusion/ej2-angular-navigations": "^18.1.46",
+    "@syncfusion/ej2-angular-popups": "^18.1.46"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@cts/common/http": ["libs/common/http/src/index.ts"],
+      "@cts/common/core": ["libs/common/core/src/index.ts"],
+      "@cts/common/config": ["libs/common/config/src/index.ts"],
+      "@cts/common/logger": ["libs/common/logger/src/index.ts"],
+      "@cts/form/lookup": ["libs/form/lookup/src/index.ts"],
+      "@cts/form-core": [
+        "dist/libs/form/core/",
+        "libs/form/core/src/public_api.ts"
+      ],
+      "@cts/form-core/select": [
+        "dist/libs/form/core/select",
+        "libs/form/core/select/src/index.ts"
+      ],
+      "@cts/form-core/json-schema": [
+        "dist/libs/ui/form/core/json-schema",
+        "libs/form/core/json-schema/src/index.ts"
+      ],
+      "@cts/form-sync": [
+        "dist/libs/form/sync/",
+        "libs/form/sync/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
