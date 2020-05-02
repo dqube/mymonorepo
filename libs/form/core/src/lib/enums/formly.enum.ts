@@ -14,5 +14,9 @@ export enum ControlType {
     CheckBox='checkbox',
     Autocomplete='autocomplete',
     MultiSelect='multiselect',
+    MultiCheckBox='multicheckbox',
+    Radio='radio',
+    DateTimePicker='datetime',
+    DateRangePicker='daterange',
     DatePicker='date'
 }

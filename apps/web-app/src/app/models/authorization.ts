@@ -2,6 +2,8 @@ import { FormlyFieldConfig, ColumnLayout, ControlType } from '@cts/form-core'
 export interface authorization {
     name: string;
     authType: string;
+    autocomplete:string;
+
 
 }
 
@@ -55,10 +57,12 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
                     label: 'City',
                     lookup: { id: 1, desc: 'sample', categoryId: 1 },
                     options: [
-                        { label: 'Snickers', value: 'snickers' },
-                        { label: 'Baby Ruth', value: 'baby_ruth' },
-                        { label: 'Milky Way', value: 'milky_way' },
+                        { desc: 'Snickers', id: 'snickers' },
+                        { desc: 'Baby Ruth', id: 'baby_ruth' },
+                        { desc: 'Milky Way', id: 'milky_way' },
                     ],
+                    valueProp: 'id',
+                    labelProp: 'desc',
                 },
             },
             {
@@ -102,13 +106,19 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
                 key: 'autocomplete',
                 templateOptions: {
                     label: 'Autocomplete',
-                    lookup: { id: 2, desc: 'sample', categoryId: 1 },
+                    lookup: { id: 1, desc: 'sample', categoryId: 1 },
+                    options: [
+                        {  id: '1' ,desc: 'Snickerss',categoryId: 1, value: '1',}
+                    ],
+                    valueProp: 'desc',
+                    labelProp: 'desc',
                 },
             },
         ],
     },
 
     { template: '<hr />' },
+    
 
     {
         type: ControlType.CheckBox,
@@ -125,15 +135,56 @@ export let authorizationFormModel: FormlyFieldConfig[] = [
         },
     },
     {
+        type: ControlType.DateTimePicker,
+        key: 'datetime',
+        templateOptions: {
+            label: 'DateTimePicker',
+        },
+    },
+    {
+        type: ControlType.DateRangePicker,
+        key: 'daterange',
+        templateOptions: {
+            label: 'DateRangePicker',
+        },
+    },
+    {
+        type: ControlType.MultiCheckBox,
+        key: 'multicheckbox',
+        templateOptions: {
+            label: 'Multicheckbox',
+            lookup: { id: 1, desc: 'sample', categoryId: 1 },
+            options: [
+                        {  id: '1' ,desc: 'Snickerss',categoryId: 1, value: '1',}
+                    ],
+            valueProp: 'id',
+            labelProp: 'desc',
+        },
+    },
+    {
+        type: ControlType.Radio,
+        key: 'radio',
+        templateOptions: {
+            label: 'Radio',
+            lookup: { id: 1, desc: 'sample', categoryId: 1 },
+            options: [
+                        {  id: '1' ,desc: 'Snickerss',categoryId: 1, value: '1',}
+                    ],
+            valueProp: 'id',
+            labelProp: 'desc',
+        },
+    },
+    {
         type: ControlType.MultiSelect,
         key: 'multiselect',
         templateOptions: {
             label: 'Multiselect',
+            lookup: { id: 1, desc: 'sample', categoryId: 1 },
             options: [
-                { label: 'Snickers', value: 'snickers' },
-                { label: 'Baby Ruth', value: 'baby_ruth' },
-                { label: 'Milky Way', value: 'milky_way' },
-            ],
+                        {  id: '1' ,desc: 'Snickerss',categoryId: 1, value: '1',}
+                    ],
+            valueProp: 'id',
+            labelProp: 'desc',
         },
     },
 ];

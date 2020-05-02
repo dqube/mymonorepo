@@ -15,7 +15,7 @@ export class AppComponent {
     this.fields = lookup.bindLookup(authorizationFormModel);
 }
   form = new FormGroup({});
-  model: authorization = { name: 'Test Name', authType: '1' };
+  model: authorization = { name: 'Test Name', authType: '1', autocomplete:"1" };
   fields: FormlyFieldConfig[];
   onSubmit() {
     console.log(this.model);
