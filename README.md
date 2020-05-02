@@ -51,6 +51,42 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 Libraries are sharable across libraries and applications. They can be imported from `@cts/mylib`.
 
+## Generate an ionic application
+
+Run `ng g @nrwl/angular:app my-mobile-app` to generate an application.
+
+It just angular app as normal, we need to integrate Ionic 4 into it with following command:
+ng add @ionic/angular --project=my-mobile-app
+
+Ohoooo, let the magic working and you will see something like this in your app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    IonicModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+Yes, and you can run ng serve — project=mobile to test. But what happen if I want to go with Ionic serve?
+The answer is YES. You can go with ionic server but need some step more. Firstly, go with ionic init command:
+ionic init "my-mobile-app" --type=angular
+Now you have ionic.config.json in your root folder of the project. After all your file will look like that:
+{
+  "name": "mobile",
+  "integrations": {},
+  "type": "angular"
+}
+Okay, then you can run the app with that command:
+ionic serve --project=my-mobile-app
+
 ## Development server
 
 Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.

@@ -467,6 +467,245 @@
           "style": "scss"
         }
       }
+    },
+    "form-table": {
+      "projectType": "library",
+      "root": "libs/form/table",
+      "sourceRoot": "libs/form/table/src",
+      "prefix": "cts",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/form/table/tsconfig.lib.json",
+            "project": "libs/form/table/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/form/table/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/form/table/tsconfig.lib.json",
+              "libs/form/table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/form/table/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/form/table/jest.config.js",
+            "tsConfig": "libs/form/table/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/form/table/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "mobile-app": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/mobile-app",
+      "sourceRoot": "apps/mobile-app/src",
+      "prefix": "cts",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/mobile-app",
+            "index": "apps/mobile-app/src/index.html",
+            "main": "apps/mobile-app/src/main.ts",
+            "polyfills": "apps/mobile-app/src/polyfills.ts",
+            "tsConfig": "apps/mobile-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/mobile-app/src/favicon.ico",
+              "apps/mobile-app/src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
+            ],
+            "styles": [
+              "apps/mobile-app/src/styles.scss",
+              {
+                "input": "node_modules/@ionic/angular/css/normalize.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/structure.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/typography.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/core.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/padding.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/float-elements.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+              },
+              {
+                "input": "apps/mobile-app/src/theme/variables.css"
+              }
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mobile-app/src/environments/environment.ts",
+                  "with": "apps/mobile-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mobile-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mobile-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mobile-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mobile-app/tsconfig.app.json",
+              "apps/mobile-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mobile-app/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mobile-app/jest.config.js",
+            "tsConfig": "apps/mobile-app/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/mobile-app/src/test-setup.ts"
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "mobile-app:ionic-cordova-build",
+            "devServerTarget": "mobile-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "mobile-app:ionic-cordova-build:production",
+              "devServerTarget": "mobile-app:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "mobile-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mobile-app:build:production"
+            }
+          }
+        }
+      }
+    },
+    "mobile-app-e2e": {
+      "root": "apps/mobile-app-e2e",
+      "sourceRoot": "apps/mobile-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/mobile-app-e2e/cypress.json",
+            "tsConfig": "apps/mobile-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mobile-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mobile-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mobile-app-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mobile-app-e2e/**"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

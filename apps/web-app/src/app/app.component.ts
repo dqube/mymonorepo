@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { authorization, authorizationFormModel } from './models/authorization';
 import { FormlyFieldConfig } from '@cts/form-core';
-import {LookupService} from '@cts/form/lookup'
+import {LookupService} from '@cts/form-lookup'
 
 @Component({
   selector: 'cts-root',

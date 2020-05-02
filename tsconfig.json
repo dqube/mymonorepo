@@ -20,7 +20,10 @@
       "@cts/common/core": ["libs/common/core/src/index.ts"],
       "@cts/common/config": ["libs/common/config/src/index.ts"],
       "@cts/common/logger": ["libs/common/logger/src/index.ts"],
-      "@cts/form/lookup": ["libs/form/lookup/src/index.ts"],
+      "@cts/form-lookup": [
+        "dist/libs/form/lookup/",
+        "libs/form/lookup/src/index.ts"
+      ],
       "@cts/form-core": [
         "dist/libs/form/core/",
         "libs/form/core/src/public_api.ts"
@@ -33,10 +36,8 @@
         "dist/libs/ui/form/core/json-schema",
         "libs/form/core/json-schema/src/index.ts"
       ],
-      "@cts/form-sync": [
-        "dist/libs/form/sync/",
-        "libs/form/sync/src/index.ts"
-      ]
+      "@cts/form-sync": ["dist/libs/form/sync/", "libs/form/sync/src/index.ts"],
+      "@cts/form-table": ["dist/libs/form/table/", "libs/form/table/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

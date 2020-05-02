@@ -46,6 +46,16 @@
     },
     "form-sync": {
       "tags": []
+    },
+    "form-table": {
+      "tags": []
+    },
+    "mobile-app": {
+      "tags": ["ionicmobileapp"]
+    },
+    "mobile-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["mobile-app"]
     }
   }
 }
