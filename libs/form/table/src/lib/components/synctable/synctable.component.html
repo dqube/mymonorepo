@@ -2,8 +2,8 @@
     [allowGrouping]="true" [pageSettings]='pageSettings'>
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">
-            <e-column field='column.field' headerText='column.headerText' textAlign='column.textAlign'
-                width='column.width'></e-column>
+            <e-column [field]='column.field' [headerText]='column.headerText' [textAlign]='column.textAlign'
+                [width]='column.width'></e-column>
         </ng-template>
     </e-columns>
 </ejs-grid>

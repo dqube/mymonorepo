@@ -30,7 +30,7 @@ export class AppComponent {
   }
   form = new FormGroup({});
   model: authorization = { name: 'Test Name', authType: '1', autocomplete: "1" };
-  products: any[] = sampleProducts;
+  products: any[] = products;
   gridOptions: GridOptions;
   columns: GridColumns[];
   data: Object[];
