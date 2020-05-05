@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GridColumns } from '../../models/table.config';
+import { GridColumns, GridOptions } from '../../models/table.config';
 import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 @Component({
@@ -9,9 +9,11 @@ import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 })
 export class SynctableComponent implements OnInit {
 
-  @Input() gridData:  any[];
+  @Input() gridData: any[];
   /** The column description of your data */
   @Input() columns: GridColumns[];
+
+  @Input() options: GridOptions;
 
   @Input() pageSize = 5;
   /** Enable disable grouping default disabled */
@@ -20,11 +22,19 @@ export class SynctableComponent implements OnInit {
   @Input() pageable = true;
   public data: object[];
 
+  public columnChooser: boolean;
+
   public pageSettings: PageSettingsModel;
-  
+
+  public toolbar:string[];
+
   constructor() { }
 
   ngOnInit(): void {
-    this.pageSettings = { pageSize: this.pageSize };}
+    this.pageSettings = { pageSize: this.pageSize };
+    this.columnChooser = this.options.columnChooser;
+    this.toolbar = ['ColumnChooser'];
+  }
+   
 
 }

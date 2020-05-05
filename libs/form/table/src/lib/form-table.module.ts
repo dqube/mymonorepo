@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
-import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { PageService, SortService, FilterService, GroupService, ToolbarService, ColumnChooserService } from '@syncfusion/ej2-angular-grids';
 import { SynctableComponent } from './components/synctable/synctable.component';
 
 @NgModule({
@@ -12,6 +12,9 @@ import { SynctableComponent } from './components/synctable/synctable.component';
   providers: [PageService,
     SortService,
     FilterService,
-    GroupService]
+    GroupService,
+    ToolbarService,
+    ColumnChooserService
+  ]
 })
 export class FormTableModule {}

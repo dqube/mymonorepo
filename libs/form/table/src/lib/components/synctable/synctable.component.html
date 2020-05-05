@@ -1,9 +1,9 @@
-<ejs-grid [dataSource]='gridData' [allowPaging]='pageable' [allowSorting]="true" [allowFiltering]="true"
-    [allowGrouping]="true" [pageSettings]='pageSettings'>
+<ejs-grid [dataSource]='gridData' [allowPaging]='pageable' [allowSorting]="true" [allowFiltering]="true" [showColumnChooser]='columnChooser'
+    [allowGrouping]="options.allowGrouping" [pageSettings]='pageSettings' [toolbar] ='toolbar'>
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">
             <e-column [field]='column.field' [headerText]='column.headerText' [textAlign]='column.textAlign'
-                [width]='column.width'></e-column>
+                [width]='column.width'[visible]='column.visible'></e-column>
         </ng-template>
     </e-columns>
-</ejs-grid>
+</ejs-grid> 

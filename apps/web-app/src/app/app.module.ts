@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormlyModule } from '@cts/form-core';
 import { FormlySyncfusionModule } from '@cts/form-sync'
@@ -12,7 +13,8 @@ import { FormTableModule } from '@cts/form-table';
     ReactiveFormsModule,
     FormlyModule.forRoot(),
     FormlySyncfusionModule,
-    FormTableModule
+    FormTableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
