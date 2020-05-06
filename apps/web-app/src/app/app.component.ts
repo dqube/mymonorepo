@@ -17,10 +17,10 @@ export class AppComponent {
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
     this.columns =[
-      { field:'ProductID', width:90,headerText:'ProductID', textAlign:'Right', visible:true},
-      { field:'ProductName', width:120,headerText:'ProductName', textAlign:'Right', visible:true},
-      { field:'QuantityPerUnit', width:120,headerText:'QuantityPerUnit', textAlign:'Right', visible:false},
-      { field:'UnitsInStock', width:90,headerText:'UnitsInStock', textAlign:'Right'}
+      { key:'ProductID', width:90,header:'ProductID', type:'number',  visible:true},      
+      { key:'ProductName', width:120,header:'ProductName', type:'string' , visible:true},
+      { key:'QuantityPerUnit', width:120,header:'QuantityPerUnit', type:'string', visible:true},
+      { key:'UnitsInStock', width:90,header:'UnitsInStock', type:'string'}
     ];
     this.data = data;
     this.gridOptions = {

@@ -5,9 +5,10 @@
     "entryFile": "src/index.ts",
     "umdModuleIds": {
       "@cts/form-core": "@cts/form-core",
+      "@syncfusion/ej2-base": "@syncfusion/ej2-base",
       "@syncfusion/ej2-angular-base": "@syncfusion/ej2-angular-base",      
-      "@syncfusion/ej2-angular-grids": "syncfusion/ej2-angular-grids"
-     
+      "@syncfusion/ej2-angular-grids": "syncfusion/ej2-angular-grids",
+      "@syncfusion/ej2-angular-navigations": "^@syncfusion/ej2-angular-navigations"
     }
   }
 }
