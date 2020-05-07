@@ -124,4 +124,9 @@ ng affected:e2e
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
-<cts-synctable [gridData]='gridOptions.data' [columns]='gridOptions.columns' [options]='gridOptions'></cts-synctable>
+<cts-synctable 
+[gridData]='gridOptions.data'
+[columns]='gridOptions.columns'
+[options]='gridOptions'
+(dataStateChaged) ="onDataStateChanged($event)"
+(rowSelected)="onSelected($event)"></cts-synctable>

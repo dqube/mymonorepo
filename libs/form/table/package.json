@@ -8,6 +8,7 @@
     "@syncfusion/ej2": "^18.1.46",
     "@syncfusion/ej2-angular-base": "^18.1.46",
     "@syncfusion/ej2-angular-grids": "^18.1.46",
-    "@syncfusion/ej2-angular-navigations": "^18.1.46"
+    "@syncfusion/ej2-angular-navigations": "^18.1.46",
+    "rxjs": "~6.5.4"
   }
 }

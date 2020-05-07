@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GridColumns, GridOptions } from '../../models/table.config';
-import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel } from '@syncfusion/ej2-angular-grids';
-
+import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
+import { Subject } from "rxjs";
 @Component({
   selector: 'cts-synctable',
   templateUrl: './synctable.component.html',
@@ -9,7 +9,7 @@ import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, Ed
 })
 export class SynctableComponent implements OnInit {
 
-  @Input() gridData: any[];
+  @Input() gridData: Subject<DataStateChangeEventArgs>;
   /** The column description of your data */
   @Input() columns: GridColumns[];
 
@@ -64,7 +64,21 @@ export class SynctableComponent implements OnInit {
   @Input()
   public customAttributes: { class: string };
 
-  
+  @Output()
+  public dataQueried: EventEmitter<string> = new EventEmitter();
+  @Output()
+  public rowSelected: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public deleteRecord: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public editRecord: EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  public groupByOptions: GroupSettingsModel = {};
+
+  @Output()
+  public dataStateChaged: EventEmitter<DataStateChangeEventArgs> = new EventEmitter();
+
   @ViewChild("grid", { static: false })
   public grid: GridComponent;
 
@@ -89,6 +103,10 @@ export class SynctableComponent implements OnInit {
     this.filterSettings = { type: "Menu" };
     this.selectOptions = { type: "Multiple", persistSelection: true };
   }
-   
-
+  rowIsSelected(event: RowSelectEventArgs): void {
+    this.rowSelected.emit(event);
+  }
+  onDataStateChanged(state: DataStateChangeEventArgs) {
+    this.dataStateChaged.emit(state);
+  }
 }

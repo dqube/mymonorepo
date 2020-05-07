@@ -6,6 +6,8 @@
   [pageSettings]="initialPage"
   allowResizing="true"
   allowFiltering="showFilter"
+  (rowSelected)="rowIsSelected($event)"
+  (dataStateChange)="onDataStateChanged($event)"
   [filterSettings]="filterSettings">
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">

@@ -16,17 +16,17 @@ export class AppComponent {
   title = 'web-app';
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
-    this.columns =[
-      { key:'ProductID', width:90,header:'ProductID', type:'number',  visible:true},      
-      { key:'ProductName', width:120,header:'ProductName', type:'string' , visible:true},
-      { key:'QuantityPerUnit', width:120,header:'QuantityPerUnit', type:'string', visible:true},
-      { key:'UnitsInStock', width:90,header:'UnitsInStock', type:'string'}
+    this.columns = [
+      { key: 'ProductID', width: 90, header: 'ProductID', type: 'number', visible: true },
+      { key: 'ProductName', width: 120, header: 'ProductName', type: 'string', visible: true },
+      { key: 'QuantityPerUnit', width: 120, header: 'QuantityPerUnit', type: 'string', visible: true },
+      { key: 'UnitsInStock', width: 90, header: 'UnitsInStock', type: 'string' }
     ];
     this.data = data;
     this.gridOptions = {
       columns: this.columns,
-      data :this.products,
-      columnChooser : true
+      data: this.products,
+      columnChooser: true
     }
   }
   form = new FormGroup({});
@@ -40,5 +40,11 @@ export class AppComponent {
   onSubmit() {
     console.log(this.model);
   }
+  onSelected(eve: any) {
+    console.log(eve.data);
+  }
+  onDataStateChanged(eve: any) {
+    console.log(eve.data);
 
+  }
 }
