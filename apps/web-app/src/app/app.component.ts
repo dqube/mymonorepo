@@ -47,4 +47,8 @@ export class AppComponent {
     console.log(eve.data);
 
   }
+  onRecordDeleted(eve: any) {
+    console.log(eve);
+
+  }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GridColumns, GridOptions } from '../../models/table.config';
-import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
+import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs, IRow, Column } from '@syncfusion/ej2-angular-grids';
 import { Subject } from "rxjs";
+import { closest } from "@syncfusion/ej2-base";
 @Component({
   selector: 'cts-synctable',
   templateUrl: './synctable.component.html',
@@ -82,7 +83,7 @@ export class SynctableComponent implements OnInit {
   @ViewChild("grid", { static: false })
   public grid: GridComponent;
 
-  public pageSizes: string[] = ["50", "100", "150", "200"];
+  public pageSizes: string[] = ["10", "20", "40", "80", "100"];
   public initialPage: { pageSize: number; pageSizes: string[] };
   public filterSettings: FilterSettingsModel;
   public toolbar: object[] = [];
@@ -92,7 +93,7 @@ export class SynctableComponent implements OnInit {
 
   constructor() { 
     this.initialPage = {
-      pageSize: 50,
+      pageSize: 10,
       pageSizes: this.pageSizes
     };
   }
@@ -102,6 +103,12 @@ export class SynctableComponent implements OnInit {
 
     this.filterSettings = { type: "Menu" };
     this.selectOptions = { type: "Multiple", persistSelection: true };
+    this.editSettings = {
+      allowDeleting: true,
+      allowAdding: true
+    };
+
+    this.initilizeCommandColumn();
   }
   rowIsSelected(event: RowSelectEventArgs): void {
     this.rowSelected.emit(event);
@@ -109,4 +116,55 @@ export class SynctableComponent implements OnInit {
   onDataStateChanged(state: DataStateChangeEventArgs) {
     this.dataStateChaged.emit(state);
   }
+
+  initilizeCommandColumn(): void {
+      this.commands.push({
+        title:"edit",
+        buttonOption: {
+          iconCss: "e-icons e-edit",
+          cssClass: "e-flat",
+          click: this.editAction.bind(this)
+        }
+      });
+
+      this.commands.push({
+        title:"delete",
+        buttonOption: {
+          iconCss: "e-icons e-delete",
+          cssClass: "e-flat",
+          click: this.deleteAction.bind(this)
+        }
+      });
+  }
+
+  deleteAction(event: Event) {
+    this.deleteRecord.emit("deletecommandclicked");
+    this.deleteRecord.emit("deletecommandclicked");
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
+      closest(event.target as Element, ".e-row").getAttribute("data-uid")
+    );
+    if (confirm("Are you sure to delete")) {
+      this.deleteRecord.emit(rowObj.data);
+    } else {
+      return null;
+    }
+  }
+
+  private editAction(event: Event): void {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
+      closest(event.target as Element, ".e-row").getAttribute("data-uid")
+    );
+    const key = this.idKey ? this.idKey : "Id";
+
+    // if (this.editRoute) {
+    //   this.router.navigate([`/${this.editRoute}/${rowObj.data[key]}/update`]);
+    // } else {
+    //   this.router.navigate([`${rowObj.data[key]}/update`], {
+    //     relativeTo: this.activatedRoute
+    //   });
+    // }
+
+    //  this.editRecord.emit(rowObj.data);
+  }
+
 }

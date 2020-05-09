@@ -21,5 +21,12 @@
             [format]="column.format">
         </e-column>
         </ng-template>
+        <e-column
+      headerText="Actions"
+      [commands]="commands"
+      *ngIf="commands.length > 0"
+      textAlign="center"
+    >
+    </e-column>
     </e-columns>
 </ejs-grid> 

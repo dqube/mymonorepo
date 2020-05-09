@@ -1,3 +1,4 @@
+import { CommandButtonOptions } from '@syncfusion/ej2-angular-grids';
 
 export interface GridColumns {
     key: string;
@@ -27,6 +28,38 @@ export interface CustomGridColumns {
     textAlign?: string;
     hederAlign?: string;
   }
+ export interface GridCommandButtonOptions extends CommandButtonOptions {
+   name:string
+
+ }
+ export interface GridCommandModel {
+  /**
+   * Define the command Button tooltip
+   */
+  title?: string;
+  /**
+   * Define the command Button type
+   * @blazorDefaultValue none
+   */
+  type?: GridCommandButtonType;
+  /**
+   * Define the button model
+   */
+  buttonOption?: GridCommandButtonOptions;
+}
+
+export declare type GridCommandButtonType = 
+/** Default enum type */
+'None' | 
+/** Edit the current row */
+'Edit' | 
+/** Delete the current row */
+'Delete' | 
+/** Save the current edited row */
+'Save' | 
+/**  Cancel the edited state */
+'Cancel';
+
   export class FilterEventModel {
     columnName?: string;
     propertyName?: string;
