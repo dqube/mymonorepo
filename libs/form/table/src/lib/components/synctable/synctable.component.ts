@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GridColumns, GridOptions } from '../../models/table.config';
-import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs, IRow, Column } from '@syncfusion/ej2-angular-grids';
+import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs, IRow, Column, CommandClickEventArgs } from '@syncfusion/ej2-angular-grids';
 import { Subject } from "rxjs";
 import { closest } from "@syncfusion/ej2-base";
 @Component({
@@ -74,6 +74,9 @@ export class SynctableComponent implements OnInit {
   @Output()
   public editRecord: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  public commandClicked: EventEmitter<any> = new EventEmitter();
+
   @Input()
   public groupByOptions: GroupSettingsModel = {};
 
@@ -138,23 +141,27 @@ export class SynctableComponent implements OnInit {
   }
 
   deleteAction(event: Event) {
-    this.deleteRecord.emit("deletecommandclicked");
-    this.deleteRecord.emit("deletecommandclicked");
-    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
-      closest(event.target as Element, ".e-row").getAttribute("data-uid")
-    );
-    if (confirm("Are you sure to delete")) {
-      this.deleteRecord.emit(rowObj.data);
-    } else {
-      return null;
-    }
+    // console.log(closest(event.target as Element, ".e-row").getAttribute("data-uid")); 
+    // this.deleteRecord.emit("deletecommandclicked");
+    // this.deleteRecord.emit("deletecommandclicked");
+    // const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
+    //   closest(event.target as Element, ".e-row").getAttribute("data-uid")
+    // );
+    // if (confirm("Are you sure to delete")) {
+    //   this.deleteRecord.emit(rowObj.data);
+    // } else {
+    //   return null;
+    // }
   }
-
+  commandClick(args: CommandClickEventArgs): void {
+    console.log(JSON.stringify(args.rowData));
+    this.commandClicked.emit(args);
+}
   private editAction(event: Event): void {
-    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
-      closest(event.target as Element, ".e-row").getAttribute("data-uid")
-    );
-    const key = this.idKey ? this.idKey : "Id";
+    // const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
+    //   closest(event.target as Element, ".e-row").getAttribute("data-uid")
+    // );
+    // const key = this.idKey ? this.idKey : "Id";
 
     // if (this.editRoute) {
     //   this.router.navigate([`/${this.editRoute}/${rowObj.data[key]}/update`]);

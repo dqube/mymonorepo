@@ -51,4 +51,12 @@ export class AppComponent {
     console.log(eve);
 
   }
+  onCommandClicked(args: any) {
+
+    console.log('-----------');
+
+    console.log(args);
+
+  }
+  
 }
