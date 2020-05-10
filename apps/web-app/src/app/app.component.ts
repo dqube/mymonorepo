@@ -24,9 +24,42 @@ export class AppComponent {
     ];
     this.data = data;
     this.gridOptions = {
+      id:"persongrid",
       columns: this.columns,
       data: this.products,
-      columnChooser: true
+      columnChooser: true,
+      commands: [{
+          title:"edit",
+          name:'edit',
+          buttonOption: {           
+            iconCss: "e-icons e-edit",
+            cssClass: "e-flat",
+          }
+        },
+        {
+          name:"delete",
+            title:"delete",
+            buttonOption: {
+              iconCss: "e-icons e-delete",
+              cssClass: "e-flat",
+            }
+          },
+          {
+            name:"view",
+            title:"view",
+            buttonOption: {
+              iconCss: "e-icons e-edit",
+              cssClass: "e-flat",
+            }
+          }
+      ],
+      toolbars: [
+        { name: 'Collapse All', text: 'Collapse All', tooltipText: 'collection All', prefixIcon: 'e-collapse', id: 'collapseall', align: 'Right' },
+        { name: 'Add', text: 'Add', tooltipText: 'Add', prefixIcon: "e-create", id: "create" },
+        { name: 'PdfExport', text: 'Pdf Export', tooltipText: 'Pdf Export', prefixIcon: "e-pdfexport", id: "pdfExport" },
+        { name: 'ExcelExport', text: 'Excel Export', tooltipText: 'Excel Export', prefixIcon: "e-excelexport", id: "excelExport" },
+        { name: 'Print', text: 'Print', tooltipText: 'Print', prefixIcon: "e-print", id: "print" },
+      ]
     }
   }
   form = new FormGroup({});
@@ -58,5 +91,8 @@ export class AppComponent {
     console.log(args);
 
   }
-  
+  onToolbarClicked(args: any) {
+    console.log('-----------');
+    console.log(args);
+  }
 }

@@ -1,4 +1,6 @@
 <ejs-grid 
+#grid
+[id]="id"
 [dataSource]='gridData'
   [toolbar]="toolbar"
   [allowSorting]="true"
@@ -6,9 +8,12 @@
   [pageSettings]="initialPage"
   allowResizing="true"
   allowFiltering="showFilter"
+  [allowPdfExport]='true'
+  [allowExcelExport]='true'
   (rowSelected)="rowIsSelected($event)"
   (dataStateChange)="onDataStateChanged($event)"
   (commandClick)='commandClick($event)'
+  (toolbarClick)="toolbarClick($event)"
   [filterSettings]="filterSettings">
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">

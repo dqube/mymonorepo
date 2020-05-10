@@ -1,4 +1,5 @@
-import { CommandButtonOptions } from '@syncfusion/ej2-angular-grids';
+import { CommandButtonOptions, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { ItemModel } from '@syncfusion/ej2-navigations';
 
 export interface GridColumns {
     key: string;
@@ -12,10 +13,13 @@ export interface GridColumns {
 }
 
 export interface GridOptions {
+    id:string;
     columns: GridColumns[];
     data: Object[];
     columnChooser: boolean;
     allowGrouping? : boolean;
+    commands?: GridCommands[];
+    toolbars?: GridToolbar[];
 }
 
 export interface CustomGridColumns {
@@ -28,24 +32,13 @@ export interface CustomGridColumns {
     textAlign?: string;
     hederAlign?: string;
   }
- export interface GridCommandButtonOptions extends CommandButtonOptions {
-   name:string
+ 
+ export interface GridCommands extends CommandModel{
+  name : string
+}
 
- }
- export interface GridCommandModel {
-  /**
-   * Define the command Button tooltip
-   */
-  title?: string;
-  /**
-   * Define the command Button type
-   * @blazorDefaultValue none
-   */
-  type?: GridCommandButtonType;
-  /**
-   * Define the button model
-   */
-  buttonOption?: GridCommandButtonOptions;
+export interface GridToolbar extends ItemModel{
+  name:string
 }
 
 export declare type GridCommandButtonType = 

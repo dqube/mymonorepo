@@ -1,6 +1,21 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GridColumns, GridOptions } from '../../models/table.config';
-import { PageSettingsModel, GridComponent, FilterSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, DataStateChangeEventArgs, GroupSettingsModel, RowSelectEventArgs, IRow, Column, CommandClickEventArgs } from '@syncfusion/ej2-angular-grids';
+import {
+  PageSettingsModel,
+  GridComponent,
+  FilterSettingsModel,
+  CommandModel,
+  EditSettingsModel,
+  TextWrapSettingsModel,
+  DataStateChangeEventArgs,
+  GroupSettingsModel,
+  RowSelectEventArgs,
+  IRow,
+  Column,
+  CommandClickEventArgs,
+  ToolbarItems
+} from '@syncfusion/ej2-angular-grids';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Subject } from "rxjs";
 import { closest } from "@syncfusion/ej2-base";
 @Component({
@@ -32,7 +47,8 @@ export class SynctableComponent implements OnInit {
   public showExcelExport: boolean;
   @Input()
   public showColumnChooser: boolean;
-
+  @Input()
+  public id: string;
   @Input()
   public idKey: any;
   @Input()
@@ -77,14 +93,17 @@ export class SynctableComponent implements OnInit {
   @Output()
   public commandClicked: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  public toolbarClicked: EventEmitter<any> = new EventEmitter();
+
   @Input()
   public groupByOptions: GroupSettingsModel = {};
 
   @Output()
   public dataStateChaged: EventEmitter<DataStateChangeEventArgs> = new EventEmitter();
 
-  @ViewChild("grid", { static: false })
-  public grid: GridComponent;
+  @ViewChild('grid') public grid: GridComponent;
+
 
   public pageSizes: string[] = ["10", "20", "40", "80", "100"];
   public initialPage: { pageSize: number; pageSizes: string[] };
@@ -94,7 +113,7 @@ export class SynctableComponent implements OnInit {
   public commands: CommandModel[] = [];
   public editSettings: EditSettingsModel;
 
-  constructor() { 
+  constructor() {
     this.initialPage = {
       pageSize: 10,
       pageSizes: this.pageSizes
@@ -103,7 +122,7 @@ export class SynctableComponent implements OnInit {
 
   ngOnInit(): void {
     // this.customAttributes = { class: "custom-grid-header" };
-
+    this.id = this.options.id;
     this.filterSettings = { type: "Menu" };
     this.selectOptions = { type: "Multiple", persistSelection: true };
     this.editSettings = {
@@ -112,6 +131,8 @@ export class SynctableComponent implements OnInit {
     };
 
     this.initilizeCommandColumn();
+    //this.toolbar= ['PdfExport'];
+    this.initializeToolBar();
   }
   rowIsSelected(event: RowSelectEventArgs): void {
     this.rowSelected.emit(event);
@@ -121,23 +142,35 @@ export class SynctableComponent implements OnInit {
   }
 
   initilizeCommandColumn(): void {
-      this.commands.push({
-        title:"edit",
-        buttonOption: {
-          iconCss: "e-icons e-edit",
-          cssClass: "e-flat",
-          click: this.editAction.bind(this)
-        }
+    const gridCommands = this.options.commands;
+    if (gridCommands.length > 0) {
+      gridCommands.forEach((command, index) => {
+        this.commands.push({
+          title: command.title,
+          buttonOption: {
+            iconCss: command.buttonOption.iconCss,
+            cssClass: command.buttonOption.cssClass,
+          }
+        });
       });
+    }
+    // this.commands.push({
+    //   title:"edit",
+    //   buttonOption: {
+    //     iconCss: "e-icons e-edit",
+    //     cssClass: "e-flat",
+    //     click: this.editAction.bind(this)
+    //   }
+    // });
 
-      this.commands.push({
-        title:"delete",
-        buttonOption: {
-          iconCss: "e-icons e-delete",
-          cssClass: "e-flat",
-          click: this.deleteAction.bind(this)
-        }
-      });
+    // this.commands.push({
+    //   title:"delete",
+    //   buttonOption: {
+    //     iconCss: "e-icons e-delete",
+    //     cssClass: "e-flat",
+    //     click: this.deleteAction.bind(this)
+    //   }
+    // });
   }
 
   deleteAction(event: Event) {
@@ -156,7 +189,7 @@ export class SynctableComponent implements OnInit {
   commandClick(args: CommandClickEventArgs): void {
     console.log(JSON.stringify(args.rowData));
     this.commandClicked.emit(args);
-}
+  }
   private editAction(event: Event): void {
     // const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(
     //   closest(event.target as Element, ".e-row").getAttribute("data-uid")
@@ -173,5 +206,79 @@ export class SynctableComponent implements OnInit {
 
     //  this.editRecord.emit(rowObj.data);
   }
+  initializeToolBar(): void {
+    const gridToolbars = this.options.toolbars;
 
+    if (gridToolbars.length > 0) {
+      gridToolbars.forEach((toolbar, index) => {
+        this.toolbar.push({
+          text: toolbar.text,
+          prefixIcon: toolbar.prefixIcon,
+          id: toolbar.id,
+          visible: toolbar.visible,
+          align: toolbar.align,
+          name: toolbar.name,
+        });
+      });
+      // if (this.showAdd) {
+      //   this.toolbar.push({
+      //     text: "Add",
+      //     prefixIcon: "e-create",
+      //     id: "add"
+      //   });
+      // }
+      // if (this.showPdfExport) {
+      //   this.toolbar.push({
+      //     text: "PdfExport",
+      //     prefixIcon: "e-Pdf_Export",
+      //     id: "pdfExport"
+      //   });
+      // }
+      // if (this.showExcelExport) {
+      //   this.toolbar.push({
+      //     text: "ExcelExport",
+      //     prefixIcon: "e-Excel_Export",
+      //     id: "excelExport"
+      //   });
+      // }
+      // if (this.showPrint) {
+      //   this.toolbar.push({
+      //     text: "Print",
+      //     prefixIcon: "e-print",
+      //     id: "print"
+      //   });
+      // }
+    }
+
+
+  }
+
+  toolbarClick(args: ClickEventArgs): void {
+    console.log(args)
+    switch (args.item.id) {
+      case "create":
+        // if (this.addRoute.trim().length === 0) {
+        //   this.router.navigate(["add"], { relativeTo: this.activatedRoute });
+        // } else {
+        //   this.router.navigate([this.addRoute]);
+        // }
+        this.toolbarClicked.emit(args.item);
+        break;
+      case "pdfExport":
+        console.log('pdfexport----')
+        console.log(args.item.id)
+        this.grid.pdfExport();
+        break;
+      case "excelExport":
+        console.log('excelExport----')
+        console.log(args.item.id)
+        this.grid.excelExport();
+        break;
+      case "print":
+        console.log('print----')
+        console.log(args.item.id)
+        window.print();
+        break;
+    }
+  }
 }
