@@ -3,13 +3,13 @@
 [id]="id"
 [dataSource]='gridData'
   [toolbar]="toolbar"
-  [allowSorting]="true"
+  [allowSorting]="allowSorting"
   [sortSettings]='sortSettings'
   [searchSettings]='searchSettings'
-  allowPaging="showPagin"
-  [pageSettings]="initialPage"
-  allowResizing="true"
-  allowFiltering="showFilter"
+  [allowPaging]="allowPaging"
+  [pageSettings]="pageSettings"
+  [allowResizing]="allowResizing"
+  [allowFiltering]="allowFiltering"
   [allowPdfExport]='true'
   [allowExcelExport]='true'
   (rowSelected)="rowIsSelected($event)"
@@ -20,8 +20,8 @@
   [filterSettings]="filterSettings">
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">
-            <e-column [field]="column.key"
-            [headerText]="column.header"
+            <e-column [field]="column.field"
+            [headerText]="column.headerText"
             [width]="column.width"
             [textAlign]="column.textAlign"
             [headerTextAlign]="column.hederAlign"

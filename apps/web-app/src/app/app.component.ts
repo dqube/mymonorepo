@@ -17,16 +17,21 @@ export class AppComponent {
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
     this.columns = [
-      { key: 'ProductID', width: 90, header: 'ProductID', type: 'number', visible: true, allowSorting: false },
-      { key: 'ProductName', width: 120, header: 'ProductName', type: 'string', visible: true },
-      { key: 'QuantityPerUnit', width: 120, header: 'QuantityPerUnit', type: 'string', visible: true },
-      { key: 'UnitsInStock', width: 90, header: 'UnitsInStock', type: 'string' }
+      { field: 'ProductID', width: 90, headerText: 'ProductID', type: 'number', visible: true, allowSorting: false },
+      { field: 'ProductName', width: 120, headerText: 'ProductName', type: 'string', visible: true },
+      { field: 'QuantityPerUnit', width: 120, headerText: 'QuantityPerUnit', type: 'string', visible: true },
+      { field: 'UnitsInStock', width: 90, headerText: 'UnitsInStock', type: 'string' }
     ];
     this.data = data;
     this.gridOptions = {
       id: "persongrid",
       columns: this.columns,
       data: this.products,
+      allowGrouping: true,
+      allowPaging: true,
+      allowFiltering: true,
+      allowResizing: true,
+      allowSorting: true,
       columnChooser: true,
       commands: [{
         title: "edit",
@@ -70,7 +75,9 @@ export class AppComponent {
         ],
         operator: 'contains', key: '', ignoreCase: true
       },
-     
+      pagingOption: {
+        pageSizes: true, pageSize: 10
+      },
       // filterOption: {
       //   type: "Menu" ,
       //   columns: [

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting, QueryString, FilterEventModel } from '../../models/table.config';
+import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting, QueryString, FilterEventModel, GridPageSetting } from '../../models/table.config';
 import {
   PageSettingsModel,
   GridComponent,
@@ -28,47 +28,16 @@ export class SynctableComponent implements OnInit {
 
   @Input() gridData: Subject<DataStateChangeEventArgs>;
   /** The column description of your data */
-  @Input() columns: GridColumns[];
 
   @Input() options: GridOptions;
 
   @Input()
-  public showUpdate: boolean;
-  @Input()
-  public showDelete: boolean;
-  @Input()
-  public showView: boolean;
-  @Input()
-  public showAdd = true;
-  @Input()
-  public showPrint: boolean;
-  @Input()
-  public showPdfExport: boolean;
-  @Input()
-  public showExcelExport: boolean;
-  @Input()
-  public showColumnChooser: boolean;
-  @Input()
   public id: string;
   @Input()
   public idKey: any;
-  @Input()
-  public pageSize = 50;
+  
 
-  @Input()
-  public pageNumber = 1;
 
-  @Input()
-  public totalPages = 1;
-
-  @Input()
-  public deleteRoute = "";
-  @Input()
-  public editRoute: string;
-  @Input()
-  public addRoute = "";
-  @Input()
-  public allowGrouping: boolean;
   @Input()
   public wrapSettings: TextWrapSettingsModel;
 
@@ -86,10 +55,6 @@ export class SynctableComponent implements OnInit {
   public dataQueried: EventEmitter<string> = new EventEmitter();
   @Output()
   public rowSelected: EventEmitter<any> = new EventEmitter();
-  @Output()
-  public deleteRecord: EventEmitter<any> = new EventEmitter();
-  @Output()
-  public editRecord: EventEmitter<any> = new EventEmitter();
 
   @Output()
   public commandClicked: EventEmitter<any> = new EventEmitter();
@@ -97,17 +62,24 @@ export class SynctableComponent implements OnInit {
   @Output()
   public toolbarClicked: EventEmitter<any> = new EventEmitter();
 
-  @Input()
-  public groupByOptions: GroupSettingsModel = {};
-
   @Output()
   public dataStateChaged: EventEmitter<DataStateChangeEventArgs> = new EventEmitter();
 
+  @Input()
+  public groupByOptions: GroupSettingsModel = {};
+
+ 
+
   @ViewChild('grid') public grid: GridComponent;
 
-
+  public columns: GridColumns[];
   public pageSizes: string[] = ["10", "20", "40", "80", "100"];
   public initialPage: { pageSize: number; pageSizes: string[] };
+  public allowGrouping?: boolean;
+  public allowPaging?: boolean;
+  public allowFiltering?: boolean;
+  public allowResizing?: boolean;
+  public allowSorting?: boolean;
   public filterSettings: GridFilterSetting;
   public toolbar: object[] = [];
   public selectOptions: object;
@@ -115,18 +87,23 @@ export class SynctableComponent implements OnInit {
   public editSettings: EditSettingsModel;
   public sortSettings: GridSortSetting;
   public searchSettings: GridSearchSetting;
+  public pageSettings: GridPageSetting;
   private query: QueryString;
   constructor() {
-    this.initialPage = {
-      pageSize: 10,
-      pageSizes: this.pageSizes
-    };
+   
     this.query = new QueryString();
   }
 
   ngOnInit(): void {
     // this.customAttributes = { class: "custom-grid-header" };
     this.id = this.options.id;
+    this.columns = this.options.columns;
+    this.allowGrouping = this.options.allowGrouping;
+    this.allowPaging = this.options.allowPaging;
+    this.pageSettings=this.options.pagingOption;
+    this.allowFiltering = this.options.allowFiltering;
+    this.allowResizing = this.options.allowResizing;
+    this.allowSorting = this.options.allowSorting;
     this.selectOptions = { type: "Multiple", persistSelection: true };
     this.editSettings = {
       allowDeleting: true,

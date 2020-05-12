@@ -1,22 +1,22 @@
-import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel, ColumnModel, PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ItemModel } from '@syncfusion/ej2-navigations';
 
-export interface GridColumns {
-    key: string;
-    header: string;
-    width?: number;
-    format?: string;
-    visible?: boolean;
-    type: string;
-    textAlign?: string;
-    hederAlign?: string;    
-    allowSorting?: boolean;    
-    allowResizing?: boolean;   
-    showColumnMenu?: boolean;    
-    allowFiltering?: boolean;   
-    allowGrouping?: boolean;    
-    allowReordering?: boolean;
-}
+// export interface GridColumns {
+//     key: string;
+//     header: string;
+//     width?: number;
+//     format?: string;
+//     visible?: boolean;
+//     type: string;
+//     textAlign?: string;
+//     hederAlign?: string;    
+//     allowSorting?: boolean;    
+//     allowResizing?: boolean;   
+//     showColumnMenu?: boolean;    
+//     allowFiltering?: boolean;   
+//     allowGrouping?: boolean;    
+//     allowReordering?: boolean;
+// }
 
 export interface GridOptions {
     id:string;
@@ -24,11 +24,16 @@ export interface GridOptions {
     data: Object[];
     columnChooser: boolean;
     allowGrouping? : boolean;
+    allowPaging? :boolean;
+    allowFiltering?:boolean;
+    allowResizing?: boolean;   
+    allowSorting?:boolean;
     commands?: GridCommands[];
     toolbars?: GridToolbar[];
     sortOptions?: GridSortSetting;
     searchOption?:GridSearchSetting;
     filterOption?:GridFilterSetting;
+    pagingOption?:GridPageSetting;
 }
 
 export interface CustomGridColumns {
@@ -47,11 +52,12 @@ export interface CustomGridColumns {
     allowGrouping?: boolean;    
     allowReordering?: boolean;
   }
- 
+ export declare type GridColumns =ColumnModel;
 
 export declare type GridCommands =CommandModel;
 
 export declare type GridSortSetting = SortSettingsModel;
+export declare type GridPageSetting =PageSettingsModel;
 
 export declare type GridSearchSetting =SearchSettingsModel;
 export declare type GridFilterSetting =FilterSettingsModel;
