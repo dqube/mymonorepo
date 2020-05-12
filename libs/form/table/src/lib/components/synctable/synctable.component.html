@@ -4,6 +4,8 @@
 [dataSource]='gridData'
   [toolbar]="toolbar"
   [allowSorting]="true"
+  [sortSettings]='sortSettings'
+  [searchSettings]='searchSettings'
   allowPaging="showPagin"
   [pageSettings]="initialPage"
   allowResizing="true"
@@ -24,6 +26,7 @@
             [headerTextAlign]="column.hederAlign"
             [visible]="column.visible"
             [type]="column.type"
+            [allowSorting]="column.allowSorting"
             [format]="column.format">
         </e-column>
         </ng-template>

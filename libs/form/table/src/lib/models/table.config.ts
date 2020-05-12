@@ -1,4 +1,4 @@
-import { CommandButtonOptions, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ItemModel } from '@syncfusion/ej2-navigations';
 
 export interface GridColumns {
@@ -10,6 +10,12 @@ export interface GridColumns {
     type: string;
     textAlign?: string;
     hederAlign?: string;    
+    allowSorting?: boolean;    
+    allowResizing?: boolean;   
+    showColumnMenu?: boolean;    
+    allowFiltering?: boolean;   
+    allowGrouping?: boolean;    
+    allowReordering?: boolean;
 }
 
 export interface GridOptions {
@@ -20,6 +26,9 @@ export interface GridOptions {
     allowGrouping? : boolean;
     commands?: GridCommands[];
     toolbars?: GridToolbar[];
+    sortOptions?: GridSortSetting;
+    searchOption?:GridSearchSetting;
+    filterOption?:GridFilterSetting;
 }
 
 export interface CustomGridColumns {
@@ -31,15 +40,23 @@ export interface CustomGridColumns {
     type: string;
     textAlign?: string;
     hederAlign?: string;
+    allowSorting?: boolean;    
+    allowResizing?: boolean;   
+    showColumnMenu?: boolean;    
+    allowFiltering?: boolean;   
+    allowGrouping?: boolean;    
+    allowReordering?: boolean;
   }
  
- export interface GridCommands extends CommandModel{
-  name : string
-}
 
-export interface GridToolbar extends ItemModel{
-  name:string
-}
+export declare type GridCommands =CommandModel;
+
+export declare type GridSortSetting = SortSettingsModel;
+
+export declare type GridSearchSetting =SearchSettingsModel;
+export declare type GridFilterSetting =FilterSettingsModel;
+
+export declare type GridToolbar = ItemModel;
 
 export declare type GridCommandButtonType = 
 /** Default enum type */

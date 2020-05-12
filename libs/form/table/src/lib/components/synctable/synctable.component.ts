@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { GridColumns, GridOptions } from '../../models/table.config';
+import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting } from '../../models/table.config';
 import {
   PageSettingsModel,
   GridComponent,
@@ -107,12 +107,13 @@ export class SynctableComponent implements OnInit {
 
   public pageSizes: string[] = ["10", "20", "40", "80", "100"];
   public initialPage: { pageSize: number; pageSizes: string[] };
-  public filterSettings: FilterSettingsModel;
+  public filterSettings: GridFilterSetting;
   public toolbar: object[] = [];
   public selectOptions: object;
   public commands: CommandModel[] = [];
   public editSettings: EditSettingsModel;
-
+  public sortSettings: GridSortSetting;
+  public searchSettings: GridSearchSetting;
   constructor() {
     this.initialPage = {
       pageSize: 10,
@@ -123,7 +124,6 @@ export class SynctableComponent implements OnInit {
   ngOnInit(): void {
     // this.customAttributes = { class: "custom-grid-header" };
     this.id = this.options.id;
-    this.filterSettings = { type: "Menu" };
     this.selectOptions = { type: "Multiple", persistSelection: true };
     this.editSettings = {
       allowDeleting: true,
@@ -133,6 +133,9 @@ export class SynctableComponent implements OnInit {
     this.initilizeCommandColumn();
     //this.toolbar= ['PdfExport'];
     this.initializeToolBar();
+    this.initializeSortSettings();
+    this.initializeSearchSettings();
+    this.initializeFilterSettings();
   }
   rowIsSelected(event: RowSelectEventArgs): void {
     this.rowSelected.emit(event);
@@ -154,6 +157,7 @@ export class SynctableComponent implements OnInit {
         });
       });
     }
+
     // this.commands.push({
     //   title:"edit",
     //   buttonOption: {
@@ -172,7 +176,23 @@ export class SynctableComponent implements OnInit {
     //   }
     // });
   }
+  initializeSortSettings(): void {
+    const gridSortSetting = this.options.sortOptions;
+    this.sortSettings = gridSortSetting;
+  }
+  initializeSearchSettings(): void {
+    const gridsearchSettings = this.options.searchOption;
+    this.searchSettings = gridsearchSettings;
+  }
+  initializeFilterSettings(): void {
+    if (this.options.filterOption != null) {
+      const gridfilterSettings = this.options.filterOption;
+      this.filterSettings = gridfilterSettings;
+    } else {
+      this.filterSettings = { type: "Menu" };
 
+    }
+  }
   deleteAction(event: Event) {
     // console.log(closest(event.target as Element, ".e-row").getAttribute("data-uid")); 
     // this.deleteRecord.emit("deletecommandclicked");
@@ -217,7 +237,6 @@ export class SynctableComponent implements OnInit {
           id: toolbar.id,
           visible: toolbar.visible,
           align: toolbar.align,
-          name: toolbar.name,
         });
       });
       // if (this.showAdd) {

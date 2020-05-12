@@ -17,49 +17,67 @@ export class AppComponent {
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
     this.columns = [
-      { key: 'ProductID', width: 90, header: 'ProductID', type: 'number', visible: true },
+      { key: 'ProductID', width: 90, header: 'ProductID', type: 'number', visible: true, allowSorting: false },
       { key: 'ProductName', width: 120, header: 'ProductName', type: 'string', visible: true },
       { key: 'QuantityPerUnit', width: 120, header: 'QuantityPerUnit', type: 'string', visible: true },
       { key: 'UnitsInStock', width: 90, header: 'UnitsInStock', type: 'string' }
     ];
     this.data = data;
     this.gridOptions = {
-      id:"persongrid",
+      id: "persongrid",
       columns: this.columns,
       data: this.products,
       columnChooser: true,
       commands: [{
-          title:"edit",
-          name:'edit',
-          buttonOption: {           
-            iconCss: "e-icons e-edit",
-            cssClass: "e-flat",
-          }
-        },
-        {
-          name:"delete",
-            title:"delete",
-            buttonOption: {
-              iconCss: "e-icons e-delete",
-              cssClass: "e-flat",
-            }
-          },
-          {
-            name:"view",
-            title:"view",
-            buttonOption: {
-              iconCss: "e-icons e-edit",
-              cssClass: "e-flat",
-            }
-          }
+        title: "edit",
+        buttonOption: {
+          iconCss: "e-icons e-edit",
+          cssClass: "e-flat",
+        }
+      },
+      {
+        title: "delete",
+        buttonOption: {
+          iconCss: "e-icons e-delete",
+          cssClass: "e-flat",
+        }
+      },
+      {
+        title: "view",
+        buttonOption: {
+          iconCss: "e-icons e-edit",
+          cssClass: "e-flat",
+        }
+      }
       ],
       toolbars: [
-        { name: 'Collapse All', text: 'Collapse All', tooltipText: 'collection All', prefixIcon: 'e-collapse', id: 'collapseall', align: 'Right' },
-        { name: 'Add', text: 'Add', tooltipText: 'Add', prefixIcon: "e-create", id: "create" },
-        { name: 'PdfExport', text: 'Pdf Export', tooltipText: 'Pdf Export', prefixIcon: "e-pdfexport", id: "pdfExport" },
-        { name: 'ExcelExport', text: 'Excel Export', tooltipText: 'Excel Export', prefixIcon: "e-excelexport", id: "excelExport" },
-        { name: 'Print', text: 'Print', tooltipText: 'Print', prefixIcon: "e-print", id: "print" },
-      ]
+        { text: 'Collapse All', tooltipText: 'collection All', prefixIcon: 'e-collapse', id: 'collapseall' },
+        { text: 'Add', tooltipText: 'Add', prefixIcon: "e-create", id: "create" },
+        { text: 'Pdf Export', tooltipText: 'Pdf Export', prefixIcon: "e-pdfexport", id: "pdfExport" },
+        { text: 'Excel Export', tooltipText: 'Excel Export', prefixIcon: "e-excelexport", id: "excelExport" },
+        { text: 'Print', tooltipText: 'Print', prefixIcon: "e-print", id: "print" },
+        { text: 'Search', tooltipText: 'Search', id: "search", align: 'Right' },
+      ],
+      sortOptions: {
+        columns: [
+          { field: 'ProductName', direction: 'Ascending' },
+          { field: 'UnitsInStock', direction: 'Ascending' }
+        ]
+      },
+      searchOption: {
+        fields: [
+          'ProductName', 'UnitsInStock'
+        ],
+        operator: 'contains', key: '', ignoreCase: true
+      },
+     
+      // filterOption: {
+      //   type: "Menu" ,
+      //   columns: [
+      //     { field: 'ProductName', matchCase: false, operator: 'startswith', predicate: 'and', value: '' },
+      //     { field: 'UnitsInStock', matchCase: false, operator: 'startswith', predicate: 'and', value: '' }
+      //   ]
+      // }
     }
   }
   form = new FormGroup({});
