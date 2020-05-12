@@ -121,6 +121,7 @@ export class SynctableComponent implements OnInit {
       pageSize: 10,
       pageSizes: this.pageSizes
     };
+    this.query = new QueryString();
   }
 
   ngOnInit(): void {
