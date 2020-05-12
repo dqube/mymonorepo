@@ -16,6 +16,7 @@
   (dataStateChange)="onDataStateChanged($event)"
   (commandClick)='commandClick($event)'
   (toolbarClick)="toolbarClick($event)"
+  (actionComplete)="actionEndHandler($event)"
   [filterSettings]="filterSettings">
     <e-columns>
         <ng-template ngFor let-column [ngForOf]="columns">

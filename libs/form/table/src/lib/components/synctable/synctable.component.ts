@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting } from '../../models/table.config';
+import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting, QueryString, FilterEventModel } from '../../models/table.config';
 import {
   PageSettingsModel,
   GridComponent,
@@ -13,7 +13,8 @@ import {
   IRow,
   Column,
   CommandClickEventArgs,
-  ToolbarItems
+  ToolbarItems,
+  ActionEventArgs
 } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Subject } from "rxjs";
@@ -114,6 +115,7 @@ export class SynctableComponent implements OnInit {
   public editSettings: EditSettingsModel;
   public sortSettings: GridSortSetting;
   public searchSettings: GridSearchSetting;
+  private query: QueryString;
   constructor() {
     this.initialPage = {
       pageSize: 10,
@@ -298,6 +300,64 @@ export class SynctableComponent implements OnInit {
         console.log(args.item.id)
         window.print();
         break;
+    }
+  }
+  private prepareQuery(): string {
+    let searchString = `selectedColumns=${this.query.selectedColumns.toString()}&`;
+
+    if (this.query.searchString) {
+      searchString += `searchString=${this.query.searchString}&`;
+    }
+
+    if (this.query.sortBy) {
+      searchString += `sortBy=${this.query.sortBy}&sortDirection=${this.query.sortDirection}&`;
+    }
+
+    searchString += `pageSize=${this.query.pageSize}&pageNumber=${this.query.pageNumber}`;
+
+    return searchString;
+  }
+  actionEndHandler(args: ActionEventArgs) {
+    console.log(args);
+    console.log(args.requestType);
+    switch (args.requestType) {
+      case "sorting":
+        this.query.sortDirection = args["direction"];
+        this.query.sortBy = args["columnName"];
+
+        break;
+      case "filtering":
+        const filteringModel = new FilterEventModel();
+        filteringModel.columnName = args["currentFilterObject"]["field"];
+        filteringModel.operator = args["currentFilterObject"]["operator"];
+        filteringModel.value = args["currentFilterObject"]["value"];
+        console.log(this.query);
+        console.log(filteringModel);
+        break;
+      case "searching":
+        console.log(this.query);
+        console.log(args.searchString);
+        this.query.searchString = args.searchString;
+
+        break;
+      case "paging":
+        this.query.searchString = args["searchString"];
+
+        break;
+    }
+
+    if (args.requestType !== "refresh") {
+      this.dataQueried.emit(this.prepareQuery());
+    }
+
+    if (
+      this.query.pageSize !== this.grid.pageSettings.pageSize ||
+      this.query.pageNumber !== this.grid.pageSettings.currentPage
+    ) {
+      this.query.pageSize = this.grid.pageSettings.pageSize;
+      this.query.pageNumber = this.grid.pageSettings.currentPage;
+
+      this.dataQueried.emit(this.prepareQuery());
     }
   }
 }
