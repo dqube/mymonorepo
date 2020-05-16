@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { authorization, authorizationFormModel } from './models/authorization';
 import { FormlyFieldConfig } from '@cts/form-core';
 import { LookupService } from '@cts/form-lookup'
-import { GridColumns, GridOptions } from '@cts/form-table'
+import { GridColumns, GridOptions, GridSortDirection } from '@cts/form-table'
 import { products, data, sampleProducts } from './models/product';
 
 @Component({
@@ -17,10 +17,10 @@ export class AppComponent {
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
     this.columns = [
-      { field: 'ProductID', width: 90, headerText: 'ProductID', type: 'number', visible: true, allowSorting: false },
-      { field: 'ProductName', width: 120, headerText: 'ProductName', type: 'string', visible: true },
-      { field: 'QuantityPerUnit', width: 120, headerText: 'QuantityPerUnit', type: 'string', visible: true },
-      { field: 'UnitsInStock', width: 90, headerText: 'UnitsInStock', type: 'string' }
+      { field: 'ProductID', width: 90, headerText: 'ProductID', type: 'number', visible: true,  allowSorting: false, columnOrder: 1 },
+      { field: 'ProductName', width: 120, headerText: 'ProductName', type: 'string', visible: true, allowSearching:true, allowSorting: true, sortDirection: 'Ascending' },
+      { field: 'QuantityPerUnit', width: 120, headerText: 'QuantityPerUnit', type: 'string', visible: true, allowSearching:true, allowSorting: true, sortDirection: 'Ascending' },
+      { field: 'UnitsInStock', width: 90, headerText: 'UnitsInStock', type: 'string', allowSorting: false }
     ];
     this.data = data;
     this.gridOptions = {
@@ -61,6 +61,7 @@ export class AppComponent {
         { text: 'Pdf Export', tooltipText: 'Pdf Export', prefixIcon: "e-pdfexport", id: "pdfExport" },
         { text: 'Excel Export', tooltipText: 'Excel Export', prefixIcon: "e-excelexport", id: "excelExport" },
         { text: 'Print', tooltipText: 'Print', prefixIcon: "e-print", id: "print" },
+        { text: 'Filter', tooltipText: 'Filter', prefixIcon: "e-print", id: "filter" },
         { text: 'Search', tooltipText: 'Search', id: "search", align: 'Right' },
       ],
       sortOptions: {
@@ -78,13 +79,13 @@ export class AppComponent {
       pagingOption: {
         pageSizes: true, pageSize: 10
       },
-      // filterOption: {
-      //   type: "Menu" ,
-      //   columns: [
-      //     { field: 'ProductName', matchCase: false, operator: 'startswith', predicate: 'and', value: '' },
-      //     { field: 'UnitsInStock', matchCase: false, operator: 'startswith', predicate: 'and', value: '' }
-      //   ]
-      // }
+      filterOption: {
+        type: "Menu" ,
+        columns: [
+          { field: 'ProductName', matchCase: false, operator: 'startswith', predicate: 'and' },
+          { field: 'UnitsInStock', matchCase: false, operator: 'startswith', predicate: 'and' }
+        ]
+      }
     }
   }
   form = new FormGroup({});

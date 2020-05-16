@@ -14,11 +14,13 @@ import {
   Column,
   CommandClickEventArgs,
   ToolbarItems,
-  ActionEventArgs
+  ActionEventArgs,
+  SortDescriptorModel
 } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Subject } from "rxjs";
 import { closest } from "@syncfusion/ej2-base";
+import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 @Component({
   selector: 'cts-synctable',
   templateUrl: './synctable.component.html',
@@ -35,7 +37,7 @@ export class SynctableComponent implements OnInit {
   public id: string;
   @Input()
   public idKey: any;
-  
+
 
 
   @Input()
@@ -68,7 +70,7 @@ export class SynctableComponent implements OnInit {
   @Input()
   public groupByOptions: GroupSettingsModel = {};
 
- 
+
 
   @ViewChild('grid') public grid: GridComponent;
 
@@ -89,8 +91,14 @@ export class SynctableComponent implements OnInit {
   public searchSettings: GridSearchSetting;
   public pageSettings: GridPageSetting;
   private query: QueryString;
+  @ViewChild('sidebar') sidebar: SidebarComponent;
+  public type: string = 'Over';
+  public target: string = '.content';
+  public onCreated(args: any) {
+    this.sidebar.element.style.visibility = '';
+  }
   constructor() {
-   
+
     this.query = new QueryString();
   }
 
@@ -100,7 +108,7 @@ export class SynctableComponent implements OnInit {
     this.columns = this.options.columns;
     this.allowGrouping = this.options.allowGrouping;
     this.allowPaging = this.options.allowPaging;
-    this.pageSettings=this.options.pagingOption;
+    this.pageSettings = this.options.pagingOption;
     this.allowFiltering = this.options.allowFiltering;
     this.allowResizing = this.options.allowResizing;
     this.allowSorting = this.options.allowSorting;
@@ -123,7 +131,10 @@ export class SynctableComponent implements OnInit {
   onDataStateChanged(state: DataStateChangeEventArgs) {
     this.dataStateChaged.emit(state);
   }
-
+  closeClick() {
+    this.sidebar.hide();
+    
+}
   initilizeCommandColumn(): void {
     const gridCommands = this.options.commands;
     if (gridCommands.length > 0) {
@@ -157,12 +168,40 @@ export class SynctableComponent implements OnInit {
     // });
   }
   initializeSortSettings(): void {
-    const gridSortSetting = this.options.sortOptions;
-    this.sortSettings = gridSortSetting;
+    const gridcolumns = this.options.columns.filter(elem => elem.allowSorting === true);
+    if (gridcolumns != null) {
+      const sortColumns: SortDescriptorModel[] = [];
+      gridcolumns.forEach((column, index) => {
+        sortColumns.push({
+          field: column.field,
+          direction: column.sortDirection
+        });
+      });
+      const gridSortSetting: GridSortSetting = {
+        columns: sortColumns
+      }
+    } else {
+      const gridSortSetting = this.options.sortOptions;
+      this.sortSettings = gridSortSetting;
+    }
+
   }
   initializeSearchSettings(): void {
-    const gridsearchSettings = this.options.searchOption;
-    this.searchSettings = gridsearchSettings;
+    const gridcolumns = this.options.columns.filter(elem => elem.allowSearching === true);
+    if (gridcolumns != null) {
+      const searchColumns: string[] = [];
+      gridcolumns.forEach((column, index) => {
+        searchColumns.push(column.field);
+      });
+      const gridsearchSettings: GridSearchSetting = {
+        fields: searchColumns,
+        operator: 'contains', key: '', ignoreCase: true
+      }
+      this.searchSettings = gridsearchSettings;
+    } else {
+      const gridsearchSettings = this.options.searchOption;
+      this.searchSettings = gridsearchSettings;
+    }
   }
   initializeFilterSettings(): void {
     if (this.options.filterOption != null) {
@@ -277,6 +316,11 @@ export class SynctableComponent implements OnInit {
         console.log('print----')
         console.log(args.item.id)
         window.print();
+        break;
+      case "filter":
+        console.log('filter----')
+        console.log(args.item.id)
+        this.sidebar.show();
         break;
     }
   }

@@ -1,4 +1,4 @@
-import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel, ColumnModel, PageSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel, ColumnModel, PageSettingsModel, SortDirection } from '@syncfusion/ej2-angular-grids';
 import { ItemModel } from '@syncfusion/ej2-navigations';
 
 // export interface GridColumns {
@@ -52,11 +52,16 @@ export interface CustomGridColumns {
     allowGrouping?: boolean;    
     allowReordering?: boolean;
   }
- export declare type GridColumns =ColumnModel;
+  export interface GridColumns extends ColumnModel{
+    columnOrder?:number;
+    sortDirection?:GridSortDirection;
+    allowSearching?:boolean;
+  }
 
 export declare type GridCommands =CommandModel;
 
 export declare type GridSortSetting = SortSettingsModel;
+export declare type GridSortDirection=SortDirection;
 export declare type GridPageSetting =PageSettingsModel;
 
 export declare type GridSearchSetting =SearchSettingsModel;

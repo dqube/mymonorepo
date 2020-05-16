@@ -19,10 +19,11 @@ import {
   ColumnMenuService,
   ContextMenuService
 } from '@syncfusion/ej2-angular-grids';
+import { SidebarModule } from '@syncfusion/ej2-angular-navigations';
 import { SynctableComponent } from './components/synctable/synctable.component';
 
 @NgModule({
-  imports: [CommonModule, BrowserModule, GridModule],
+  imports: [CommonModule, BrowserModule, GridModule,SidebarModule],
   exports: [SynctableComponent],
   declarations: [SynctableComponent],
   providers: [

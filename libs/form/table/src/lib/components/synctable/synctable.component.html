@@ -1,3 +1,13 @@
+<ejs-sidebar id="default-sidebar" #sidebar [type]='type' [target]='target' (created)="onCreated($event)" position="Right" width="80%" style="visibility: hidden">
+  <div class="title"> Sidebar content</div>
+  <div class="sub-title">
+      Click the button to close the Sidebar.
+  </div>
+  <div class="center-align">
+    <button  id="close" (click)="closeClick()" class="e-btn close-btn">Close Sidebar</button>
+</div>
+</ejs-sidebar>
+<div id="maincontent" class="content">
 <ejs-grid 
 #grid
 [id]="id"
@@ -40,3 +50,4 @@
     </e-column>
     </e-columns>
 </ejs-grid> 
+</div>
