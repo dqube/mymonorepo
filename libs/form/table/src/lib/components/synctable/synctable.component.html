@@ -1,8 +1,12 @@
-<ejs-sidebar id="default-sidebar" #sidebar [type]='type' [target]='target' (created)="onCreated($event)" position="Right" width="80%" style="visibility: hidden">
+<ejs-sidebar id="default-sidebar" #sidebar [type]='type' [target]='target' (created)="onCreated($event)" position="Right" width="100%" style="visibility: hidden">
   <div class="title"> Sidebar content</div>
   <div class="sub-title">
       Click the button to close the Sidebar.
   </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [form]="form" [fields]="options.filterFormModel" [model]="options.filterModel"></formly-form>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
   <div class="center-align">
     <button  id="close" (click)="closeClick()" class="e-btn close-btn">Close Sidebar</button>
 </div>

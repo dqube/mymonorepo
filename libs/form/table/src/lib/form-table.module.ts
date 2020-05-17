@@ -21,9 +21,20 @@ import {
 } from '@syncfusion/ej2-angular-grids';
 import { SidebarModule } from '@syncfusion/ej2-angular-navigations';
 import { SynctableComponent } from './components/synctable/synctable.component';
+import { FormlyModule } from '@cts/form-core';
+import { FormlySyncfusionModule } from '@cts/form-sync'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, BrowserModule, GridModule,SidebarModule],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    GridModule,
+    SidebarModule,
+    ReactiveFormsModule,
+    FormlyModule.forChild(),
+    FormlySyncfusionModule,
+  ],
   exports: [SynctableComponent],
   declarations: [SynctableComponent],
   providers: [
@@ -45,4 +56,4 @@ import { SynctableComponent } from './components/synctable/synctable.component';
     ContextMenuService
   ]
 })
-export class FormTableModule {}
+export class FormTableModule { }

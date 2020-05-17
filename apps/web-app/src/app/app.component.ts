@@ -16,6 +16,7 @@ export class AppComponent {
   title = 'web-app';
   constructor(private lookup: LookupService) {
     this.fields = lookup.bindLookup(authorizationFormModel);
+    this.filterModel=lookup.bindLookup(authorizationFormModel);
     this.columns = [
       { field: 'ProductID', width: 90, headerText: 'ProductID', type: 'number', visible: true,  allowSorting: false, columnOrder: 1 },
       { field: 'ProductName', width: 120, headerText: 'ProductName', type: 'string', visible: true, allowSearching:true, allowSorting: true, sortDirection: 'Ascending' },
@@ -23,6 +24,7 @@ export class AppComponent {
       { field: 'UnitsInStock', width: 90, headerText: 'UnitsInStock', type: 'string', allowSorting: false }
     ];
     this.data = data;
+    
     this.gridOptions = {
       id: "persongrid",
       columns: this.columns,
@@ -85,8 +87,10 @@ export class AppComponent {
           { field: 'ProductName', matchCase: false, operator: 'startswith', predicate: 'and' },
           { field: 'UnitsInStock', matchCase: false, operator: 'startswith', predicate: 'and' }
         ]
-      }
-    }
+      },
+      filterFormModel: this.fields,
+      filterModel:this.model
+    }  
   }
   form = new FormGroup({});
   model: authorization = { name: 'Test Name', authType: '1', autocomplete: "1" };
@@ -95,7 +99,7 @@ export class AppComponent {
   columns: GridColumns[];
   data: Object[];
   fields: FormlyFieldConfig[];
-
+filterModel:FormlyFieldConfig[];
   onSubmit() {
     console.log(this.model);
   }

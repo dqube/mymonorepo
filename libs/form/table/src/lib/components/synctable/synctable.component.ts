@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { GridColumns, GridOptions, GridSortSetting, GridSearchSetting, GridFilterSetting, QueryString, FilterEventModel, GridPageSetting } from '../../models/table.config';
 import {
   PageSettingsModel,
@@ -27,6 +28,7 @@ import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
   styleUrls: ['./synctable.component.scss']
 })
 export class SynctableComponent implements OnInit {
+
 
   @Input() gridData: Subject<DataStateChangeEventArgs>;
   /** The column description of your data */
@@ -92,13 +94,14 @@ export class SynctableComponent implements OnInit {
   public pageSettings: GridPageSetting;
   private query: QueryString;
   @ViewChild('sidebar') sidebar: SidebarComponent;
-  public type: string = 'Over';
-  public target: string = '.content';
+  public type: string;
+  public target: string;
+  public form: FormGroup = new FormGroup({});
   public onCreated(args: any) {
     this.sidebar.element.style.visibility = '';
   }
-  constructor() {
 
+  constructor() {
     this.query = new QueryString();
   }
 
@@ -113,6 +116,9 @@ export class SynctableComponent implements OnInit {
     this.allowResizing = this.options.allowResizing;
     this.allowSorting = this.options.allowSorting;
     this.selectOptions = { type: "Multiple", persistSelection: true };
+    this.type = 'Over';
+
+    this.target = '.content';
     this.editSettings = {
       allowDeleting: true,
       allowAdding: true
@@ -133,8 +139,8 @@ export class SynctableComponent implements OnInit {
   }
   closeClick() {
     this.sidebar.hide();
-    
-}
+
+  }
   initilizeCommandColumn(): void {
     const gridCommands = this.options.commands;
     if (gridCommands.length > 0) {
@@ -381,5 +387,8 @@ export class SynctableComponent implements OnInit {
 
       this.dataQueried.emit(this.prepareQuery());
     }
+  }
+  onSubmit() {
+    console.log(this.options.filterModel);
   }
 }

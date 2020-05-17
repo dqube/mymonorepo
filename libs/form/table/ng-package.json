@@ -5,11 +5,13 @@
     "entryFile": "src/index.ts",
     "umdModuleIds": {
       "@cts/form-core": "@cts/form-core",
+      "@cts/form-sync": "@cts/form-sync",
       "@syncfusion/ej2-base": "@syncfusion/ej2-base",
       "@syncfusion/ej2-angular-base": "@syncfusion/ej2-angular-base",      
       "@syncfusion/ej2-angular-grids": "syncfusion/ej2-angular-grids",
       "@syncfusion/ej2-angular-navigations": "^@syncfusion/ej2-angular-navigations",
-      "rxjs": "rxjs"
+      "rxjs": "rxjs",
+      "@angular/forms":"@angular/forms"
     }
   }
 }

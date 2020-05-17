@@ -1,5 +1,6 @@
 import { CommandButtonOptions, CommandModel, SortSettingsModel, SearchSettingsModel, FilterSettingsModel, ColumnModel, PageSettingsModel, SortDirection } from '@syncfusion/ej2-angular-grids';
 import { ItemModel } from '@syncfusion/ej2-navigations';
+import { FormlyFieldConfig } from '@cts/form-core';
 
 // export interface GridColumns {
 //     key: string;
@@ -34,6 +35,8 @@ export interface GridOptions {
     searchOption?:GridSearchSetting;
     filterOption?:GridFilterSetting;
     pagingOption?:GridPageSetting;
+    filterFormModel?: FormlyFieldConfig[];
+    filterModel?:any;
 }
 
 export interface CustomGridColumns {
